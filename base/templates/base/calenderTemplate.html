@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List with Calendar</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+        <input type="text" id="taskInput" placeholder="Add a task...">
+        <button id="addTaskButton">Add Task</button>
+
+        <ul id="taskList">
+            <!-- Task items will be added here -->
+        </ul>
+
+        <div id="calendarContainer"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+        const taskInput = document.getElementById('taskInput');
+        const addTaskButton = document.getElementById('addTaskButton');
+        const taskList = document.getElementById('taskList');
+
+        addTaskButton.addEventListener('click', function() {
+            const taskText = taskInput.value.trim();
+
+            if (taskText) {
+                const dueDate = prompt('Enter the due date (YYYY-MM-DD):');
+                const taskItem = document.createElement('li');
+                taskItem.innerText = taskText + ' (Due: ' + dueDate + ')';
+                taskList.appendChild(taskItem);
+                taskInput.value = '';
+
+                // Add the task to the calendar
+                $('#calendarContainer').fullCalendar('renderEvent', {
+                    title: taskText,
+                    start: dueDate,
+                    allDay: true
+                });
+            }
+        });
+
+        $(document).ready(function() {
+            $('#calendarContainer').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultView: 'month',
+                editable: false,
+                events: []
+            });
+        });
+    </script>
+</body>
+</html>

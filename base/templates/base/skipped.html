@@ -1,0 +1,56 @@
+{% extends 'base/main.html' %}
+{% block content %}
+  {% load static %}
+  {% if tasks|length > 0 %}
+
+    <a id="add-link" href="{% url 'task-create' %}">
+      <button type="submit" name="submit" class="btn btn-outline-primary">
+        Add
+      </button>
+    </a>
+  {% endif %}
+
+  <div>
+    <h3>Total Skipped Tasks: {{ tasks|length }}</h3>
+  </div>
+
+  <div id="tasklist" class="card-body">
+    {% for task in tasks %}
+      <div class="task-wrapper" data-position="{{ task.pk }}">
+        <div class="task-title">
+          <div class="task-incomplete-icon"></div>
+          <i><s><a href="{% url 'task-update' task.id %}">{{ task }}</a></s></i>
+        </div>
+        <div>
+          <span style="float: right;" class="timer"><b>Due:</b> {{ task.due|timeuntil }}</span>
+        </div>
+        <div class="task-controls">
+          <a class="delete-link" href="{% url 'task-delete' task.id %}"><i class="far fa-trash-alt"></i></a>
+          <span class="handle">&nbsp;&#10247;</span>
+        </div>
+      </div>
+    {% empty %}
+      <div style="text-align: center; padding-bottom: 10px; line-height: 1em;">
+        <h3>No skipped tasks.</h3>
+        <h3>Create a <a style="text-decoration: none; color: #e53935;" href="{% url 'task-create' %}">New task</a>!</h3>
+      </div>
+    {% endfor %}
+  </div>
+
+  <style>
+    #tasklist {
+      max-height: 500px; /* Set the maximum height for the table */
+      overflow-y: auto; /* Enable vertical scroll when the table exceeds the maximum height */
+      margin-top: 0; /* Remove top margin */
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 768px) {
+      /* Adjust the padding based on the number of tasks */
+      .pending-tasks-form {
+        padding: 10px;
+      }
+    }
+  </style>
+
+{% endblock content %}

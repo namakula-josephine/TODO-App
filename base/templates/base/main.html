@@ -1,0 +1,532 @@
+{% load static%}
+
+<html>
+    <head>
+        <meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<!-- Other CSS files -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.min.css">
+<link rel="stylesheet" href="{% static 'todo/assets/style.css' %}">
+<!-- Rest of the CSS files -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/south-street/theme.min.css" integrity="sha256-j5WK5GB3+w3i2jRf0bV9dkjJ+mm+TiSEG6WgNiD+gWk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.min.css" integrity="sha256-rxais37anKUnpL5QzSYte+JnIsmkGmLG+ZhKSkZkwVM=" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/dmuy/MDTimePicker.min/dist/mdtimepicker.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<!-- Bootstrap 5 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/3898ea99f9.js" crossorigin="anonymous"></script>
+        <style>
+            
+           
+            body {
+                background-color: #fbfbfb;
+                font-family: 'Montserrat', sans-serif;
+                
+              }
+              p{
+                font-weight:normal;
+              }
+              @media (min-width: 991.98px) {
+                main {
+                  padding-left: 240px;
+                }
+              }
+              
+              .sidebar {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                padding: 58px 0 0; 
+                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+                width: 240px;
+                z-index: 600;
+              }
+              
+              @media (max-width: 991.98px) {
+                .sidebar {
+                  width: 100%;
+                }
+              }
+              .sidebar .active {
+                border-radius: 5px;
+                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+              }
+              
+              .sidebar-sticky {
+                position: relative;
+                top: 0;
+                height: calc(100vh - 48px);
+                padding-top: 0.5rem;
+                overflow-x: hidden;
+                overflow-y: auto; 
+              }
+
+            * {
+                box-sizing: border-box;
+            }
+
+          .active{
+                background-color:red ; 
+            }
+            
+            body {
+                background: #EFEFEF;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                font-family: 'Montserrat', sans-serif;
+                height: 100vh;
+                margin: 20px, 50px;
+            }
+
+            h1 {
+                font-weight: bold;
+                margin: 0;
+                text-align: center;
+            }
+            
+            h2 {
+                text-align: center;
+            }
+            
+            p {
+                font-size: 14px;
+                font-weight: 100;
+                line-height: 20px;
+                letter-spacing: 0.5px;
+                margin: 20px 0 30px;
+            }
+            
+            span {
+                font-size: 12px;
+            }
+            
+            a {
+                color: #333;
+                font-size: 14px;
+                text-decoration: none;
+                margin: 15px 0;
+            }
+            
+            form {
+                background-color: #FFFFFF;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                padding: 0 50px;
+                height: 100%;
+                text-align: center;
+                font-weight: 600;
+            }
+            
+            input {
+                background-color: #eee;
+                border: none;
+                padding: 12px 15px;
+                margin: 8px 0;
+                width: 100%;
+            }
+
+
+            
+            .container {
+                background-color: #FFFAFA;
+                border-radius: 10px;
+                  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+                        0 10px 10px rgba(0,0,0,0.22);
+                position: relative;
+                overflow:hidden;
+                width: 768px;
+                max-width: 100%;
+                min-height: 480px;
+                padding: 20px;
+                margin-top: 700px;
+            } 
+            
+            .form-container {
+                position: absolute;
+                top: 0;
+                height: 100%;
+                transition: all 0.6s ease-in-out;
+                padding: 20px;
+            }
+            
+            .sign-in-container {
+                left: 0;
+                width: 50%;
+                z-index: 2;
+            }
+            
+            .container.right-panel-active .sign-in-container {
+                transform: translateX(100%);
+            }
+            
+            .sign-up-container {
+                left: 0;
+                width: 50%;
+                opacity: 0;
+                z-index: 1;
+            }
+            #list1 .form-control {
+                border-color: transparent;
+              }
+            #list1 .form-control:focus {
+                border-color: transparent;
+                box-shadow: none;
+              }
+            #list1 .select-input.form-control[readonly]:not([disabled]) {
+                background-color: #fbfbfb;
+              }
+            .container.right-panel-active .sign-up-container {
+                transform: translateX(100%);
+                opacity: 1;
+                z-index: 5;
+                animation: show 0.6s;
+            }
+            
+            @keyframes show {
+                0%, 49.99% {
+                    opacity: 0;
+                    z-index: 1;
+                }
+                
+                50%, 100% {
+                    opacity: 1;
+                    z-index: 5;
+                }
+            }
+            
+            .overlay-container {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 50%;
+                height: 100%;
+                overflow: scroll;
+                transition: transform 0.6s ease-in-out;
+                z-index: 100;
+            }
+            
+            .container.right-panel-active .overlay-container{
+                transform: translateX(-100%);
+            }
+            
+            .overlay {
+                background: #FF416C;
+                background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+                background: linear-gradient(to right, #FF4B2B, #FF416C);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: 0 0;
+                color: #FFFFFF;
+                position: relative;
+                left: -100%;
+                height: 100%;
+                width: 200%;
+                  transform: translateX(0);
+                transition: transform 0.6s ease-in-out;
+            }
+            
+            .container.right-panel-active .overlay {
+                  transform: translateX(50%);
+            }
+            
+            .overlay-panel {
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                padding: 0 40px;
+                text-align: center;
+                top: 0;
+                height: 100%;
+                width: 50%;
+                transform: translateX(0);
+                transition: transform 0.6s ease-in-out;
+            }
+            
+            .overlay-left {
+                transform: translateX(-20%);
+            }
+            
+            .container.right-panel-active .overlay-left {
+                transform: translateX(0);
+            }
+            
+            .overlay-right {
+                right: 0;
+                transform: translateX(0);
+            }
+            
+            .container.right-panel-active .overlay-right {
+                transform: translateX(20%);
+            }
+            
+            .social-container {
+                margin: 20px 0;
+            }
+            
+            .social-container a {
+                border: 1px solid #DDDDDD;
+                border-radius: 50%;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 5px;
+                height: 40px;
+                width: 40px;
+            }
+            
+            .task-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color: #fff;
+                border-top: 1px solid #dfe4ea;
+                overflow: scroll;
+            }
+  
+           .task-title {
+                display: flex;
+                padding: 20px;
+            }
+
+            .task-title {
+                display: flex;
+                padding: 20px;
+            }
+
+             .task-title a {
+                text-decoration: none;
+                color: black;
+                margin-left: 10px;
+            }
+
+            .task-complete-icon {
+                height: 20px;
+                width: 20px;
+                background-color: #90EE90;
+                border-radius: 50%;
+             }
+
+            .task-incomplete-icon {
+                height: 20px;
+                width: 20px;
+                background-color: rgb(218, 218, 218);
+                border-radius: 50%;
+            }
+
+            .delete-link {
+                text-decoration: none;
+                font-weight: 900;
+                color: #cf4949;
+                font-size: 32px;
+                line-height: 0;
+                padding: 20px 0px;
+            }
+
+            .dropArea {
+                background-color: #f1f2f6;
+                color: black;
+                border: #ced6e0 1px solid;
+            }
+
+            .selectedTask {
+                opacity: 0.6;
+            }
+
+
+            #add-link {
+                color: #EB796F;
+                text-decoration: none;
+                font-size: 42px;
+                text-shadow: 1px 1px #81413b;
+             }
+
+            #search-add-wrapper {
+                display: inline;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+             }
+
+            @media screen and (max-width:320px) {
+                #search-add-wrapper {
+                padding: 10px;
+            }
+            }
+
+            input[type=text],
+            input[type=password],
+            textarea {
+                border: 1px solid #757575;
+                border-radius: 5px;
+                padding: 10px;
+                width: 90%;
+             }
+
+            label {
+                padding-top: 10px !important;
+                display: block;
+            }
+
+            ::placeholder {
+                font-weight: 300;
+                opacity: 0.5;
+             }
+
+            .button {
+                border: 1px solid #757575;
+                background-color: #FFF;
+                color: #EB796F;
+                padding: 10px;
+                font-size: 14px;
+                border-radius: 5px;
+                cursor: pointer;
+                text-decoration: none;
+             }
+
+            .card-body {
+                padding: 20px;
+                height:70%
+            }
+            *{
+                margin: 0;
+                 padding: 0;
+                 box-sizing: border-box;
+                }
+
+            .wrapper {
+                display: block;
+             }
+    
+  
+        </style>
+    </head>
+       <body>
+
+    <header>
+    <nav
+         id="sidebarMenu"
+         class="collapse d-lg-block sidebar collapse "
+         >
+        <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+          <a
+             href="#"
+             class="list-group-item list-group-item-action py-2 ripple"
+             aria-current="true"
+             >
+            <i class="fas fa-tachometer-alt fa-fw me-3"></i
+              > <span>Main dashboard</span>
+          </a>
+          
+          <a
+             href="{% url 'task-create' %}"
+             class="list-group-item list-group-item-action py-2 ripple active" 
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+              </svg>
+              <span>Create Task</span>
+          </a>
+       
+           <a
+            href="{% url 'pending_tasks' %}"
+            class="list-group-item list-group-item-action py-2 ripple active"
+           >
+           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
+            <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
+          </svg>
+           <span>Pending</span>
+          </a>
+       <a
+       href="{% url 'finished_tasks' %}"
+       class="list-group-item list-group-item-action py-2 ripple active"
+       >
+       <i class="fa-sharp fa-solid fa-check"></i>
+       <span>Finished</span>
+
+    </a>
+    <a
+    href="{% url 'skipped_tasks' %}"
+    class="list-group-item list-group-item-action py-2 ripple active"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-forward" viewBox="0 0 16 16">
+        <path d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.752l-6.267 3.636c-.52.302-1.233-.043-1.233-.696v-2.94l-6.267 3.636C.713 12.69 0 12.345 0 11.692V4.308c0-.653.713-.998 1.233-.696L7.5 7.248v-2.94c0-.653.713-.998 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5zM1 4.633v6.734L6.804 8 1 4.633zm7.5 0v6.734L14.304 8 8.5 4.633z"/>
+    </svg>
+    <span>Skipped</span>
+    </a>
+    </div>
+    </div>
+    </nav>
+    
+    <nav
+         id="main-navbar"
+         class="navbar navbar-expand-lg navbar-light bg-white fixed-top"
+         >
+      <div class="container-fluid">
+        
+        <form method="GET" class="navbar-nav ms-auto d-flex flex-row">
+            <a class="navbar-brand" href="{% static 'YOURTODO.png' %}">
+                <img src="{% static 'YOURTODO.png' %}" alt="Logo" style="width: 100px; height: 40px;">
+            </a>   
+            <marquee>Your Everyday taskmate</marquee>
+
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value="{{search_input}}">
+            <Button class="btn btn-dark" type="submit">search</Button>
+            
+        </form>
+
+        <ul class="navbar-nav ms-auto d-flex flex-row">
+        <hl > Hello {{request.user|title}}</h1></ul>
+            <u1><div>
+   
+           
+          </div></ul>
+      </div>
+        <ul class="navbar-nav ms-auto d-flex flex-row">
+          <li class="nav-item dropdown">
+            {% if request.user.is_authenticated %}
+  
+       <a href="{% url 'logout' %}"><button type="button" class="btn btn-outline-primary">LOGOUT</button> </a>
+    {% else %}
+      <a  href="{% url 'login' %}">Login</a>
+  
+      {% endif %}
+        </ul>
+        
+    </nav>
+   
+    </head>
+
+    <div>
+        <div class="container">
+       
+            {% block content %}
+            
+       
+            {% endblock content %}
+           
+        
+        </div>
+               
+    
+    </div>
+    
+    </body> 
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> <script src="https://kit.fontawesome.com/15974f9624.js" crossorigin="anonymous"></script> 
+</html>

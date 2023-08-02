@@ -1,0 +1,38 @@
+{% extends 'base/main.html ' %}
+{% block content %}
+<div class="card-body ">
+  <h3>CREATE YOUR TASK HERE</h3>
+  <a id="add-link" href="{% url 'task-create' %}"></a>
+<a href="{% url 'tasks' %}"  ><button type="submit" name="submit" class="btn btn-outline-danger">
+  GO BACK
+</button></a>
+  <form  method="POST" action="">
+      {% csrf_token %}
+      {{form.as_p}}
+
+      <input type="submit" class="btn btn-primary" value="Submit">
+  </form>
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.5.0.min.js"
+  integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+  crossorigin="anonymous">
+  </script>
+  <script>
+  $(document).ready(function(){
+    var date_input=$('input[name="due"]');
+    var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+    var options={
+      dateFormat: 'yy-mm-dd',
+      
+    };
+    date_input.datepicker(options);
+  })
+</script>
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous">
+</script>
+
+{% endblock content %}
